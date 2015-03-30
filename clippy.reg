@@ -1,0 +1,10 @@
+﻿Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\Encode to Clipboard\command]
+@="c:\\clippy.exe -g -c \"%1\""
+
+[HKEY_CLASSES_ROOT\DesktopBackground\Shell\Decode from Clipboard\command]
+@="c:\\clippy.exe -g -p"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\Decode from Clipboard\command]
+@="c:\\clippy.exe -g -p"

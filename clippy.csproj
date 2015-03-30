@@ -48,4 +48,7 @@
     <Compile Include="ArgInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="clippy.reg" />
+  </ItemGroup>
 </Project>
