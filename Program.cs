@@ -27,21 +27,24 @@ using System.Windows.Forms;
 
 namespace clippy
 {
-	class MainClass	{
+    class MainClass
+    {
 
-		private static void doHelp() {
-			Console.WriteLine("\r\n                                 -clippy-\r\n"+
-			                  "\r\n"+
-			                  "  --copy, -c <filename>:     Copy file to base64 encoded clipboard.\r\n"+
-                              "  --paste, -p:               Paste base64 encoded clipboard to file.\r\n"+
-                              "  --gui, -g:                 Show gui progress bar.\r\n"+
-                              "  --dump, -d:                Dump copy output to stdout.\r\n"+
-                              "  --help, -h:                This help.\r\n"+
-							  "\r\n");
+        private static void doHelp()
+        {
+            Console.WriteLine("\r\n                                 -clippy-\r\n" +
+                              "\r\n" +
+                              "  --copy, -c <filename>:     Copy file to base64 encoded clipboard.\r\n" +
+                              "  --paste, -p:               Paste base64 encoded clipboard to file.\r\n" +
+                              "  --gui, -g:                 Show gui progress bar.\r\n" +
+                              "  --dump, -d:                Dump copy output to stdout.\r\n" +
+                              "  --help, -h:                This help.\r\n" +
+                              "\r\n");
             Environment.Exit(0);
-		}
-        
-        private static ArgInfo processArgs(string[] args) {
+        }
+
+        private static ArgInfo processArgs(string[] args)
+        {
             ArgInfo argInfo;
             argInfo.bCopy = false;
             argInfo.bPaste = false;
@@ -49,18 +52,22 @@ namespace clippy
             argInfo.bShowProgress = false;
             argInfo.copyFileName = null;
             argInfo.pasteFileName = null;
-            
+
             int count = 1;
-            while (count <= args.Length) {
-                switch (args[count-1].ToLower()) {
+            while (count <= args.Length)
+            {
+                switch (args[count - 1].ToLower())
+                {
                     case "--copy":
                     case "-c":
                     case "/c":
                         argInfo.bCopy = true;
-                        if (count < args.Length) {
+                        if (count < args.Length)
+                        {
                             argInfo.copyFileName = args[count];
                             count++;
-                        } else doHelp();
+                        }
+                        else doHelp();
                         break;
                     case "--paste":
                     case "-p":
@@ -71,10 +78,12 @@ namespace clippy
                     case "-o":
                     case "/o":
                         argInfo.bPaste = true;
-                        if (count < args.Length) {
+                        if (count < args.Length)
+                        {
                             argInfo.pasteFileName = args[count];
                             count++;
-                        } else doHelp(); 
+                        }
+                        else doHelp();
                         break;
                     case "--dump":
                     case "-d":
@@ -97,28 +106,35 @@ namespace clippy
                 }
                 count++;
             }
-            
+
             return argInfo;
         }
-        
-		[STAThread]
-		public static void Main(string[] args) {       
+
+        [STAThread]
+        public static void Main(string[] args)
+        {
             ArgInfo argInfo = processArgs(args);
 
-            if (!(argInfo.bCopy | argInfo.bPaste)) {
+            if (!(argInfo.bCopy | argInfo.bPaste))
+            {
                 doHelp();
             }
-            
-            if (argInfo.bShowProgress) {
+
+            if (argInfo.bShowProgress)
+            {
                 Application.Run(new ProgressView(argInfo));
-            } else {
-                if (argInfo.bCopy) {
-                ClipboardCodec.toClip(argInfo.copyFileName, dump: argInfo.bDump);
+            }
+            else
+            {
+                if (argInfo.bCopy)
+                {
+                    ClipboardCodec.toClip(argInfo.copyFileName, dump: argInfo.bDump);
                 }
-                if (argInfo.bPaste) {
+                if (argInfo.bPaste)
+                {
                     ClipboardCodec.fromClip(argInfo.pasteFileName);
                 }
             }
-		}
-	}
+        }
+    }
 }
